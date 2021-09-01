@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--    使用配置文件
+             resource:类路径下的
+        -->
+    <properties resource="conf/jdbc.properties"/>
+
+        <!--控制mybatis全局行为-->
+    <settings>
+        <!--        设置mybatis输出日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true "/>
+    </settings>
+
+    <!--分页工具-->
+    <plugins>
+        <plugin interceptor ="com.github.pagehelper.PageInterceptor">
+           <!--默认值为false。 true，pageNum<=0 时会查询第一页，
+           pageNum>pages（超过总数时），会查询最后一页。
+           默认false 时，直接根据参数进行查询。-->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--配置数据源： 创建Connection对象。-->
+            <dataSource type="POOLED">
+                <!--driver:驱动的内容-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <!--连接数据库的url-->
+                <property name="url" value="${jdbc.url}"/>
+                <!--用户名-->
+                <property name="username" value="${jdbc.username}"/>
+                <!--密码-->
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <package name="com.ssm.dao"/>
+    </mappers>
+</configuration>

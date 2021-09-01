@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--springmvc的配置文件-->
+    <!--声明组件扫描器-->
+    <context:component-scan base-package="com.ssm.controller" />
+
+    <!--声明jsp视图解析器：帮助处理视图-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀：指定视图文件的路径-->
+        <property name="prefix" value="/WEB-INF/views/" />
+        <!--后缀：视图文件的扩展名-->
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!--将springmvc不能处理的请求交给tomcat-->
+    <mvc:default-servlet-handler/>
+
+    <!--声明注解驱动,创建HttpMessageConveter接口的7个实现类对象
+        解决resources和@RequestMapping使用有冲突
+    -->
+    <mvc:annotation-driven />
+
+    <!--    一句话设置静态资源-->
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
+</beans>
